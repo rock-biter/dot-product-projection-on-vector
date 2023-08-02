@@ -56,7 +56,7 @@ const sizes = {
 const fov = 60
 const camera = new THREE.PerspectiveCamera(fov, sizes.width / sizes.height, 0.1)
 
-camera.position.set(3, 3, 6)
+camera.position.set(3, 3, 7)
 
 /**
  * renderer
@@ -181,28 +181,18 @@ function createText(text, position, color) {
 }
 
 function init() {
-	const positionA = new THREE.Vector3(3, 1, 0)
-	const s = new THREE.Vector3(1, 2, 0)
-
-	s.multiplyScalar(2)
-
-	console.log(s.length())
+	const positionA = new THREE.Vector3(5, 2, 0)
+	const positionB = new THREE.Vector3(1, 3, 0)
 
 	createVector('A', positionA)
-	createVector('s', s)
-
-	const positionB = positionA.clone().add(s)
-
 	createVector('B', positionB)
 
-	// const normalizedB = positionB.multiplyScalar(1 / positionB.length())
-	const normalizedB = positionB.normalize()
-	createVector('nB', normalizedB)
+	const projB = positionB.clone().projectOnVector(positionA)
+	createVector('projB',projB)
 
-	// s.negate()
+	const perpB = positionB.clone().sub(projB)
+	createVector('perpB',perpB)
 
-	// createVector('-s', s)
 
-	// const positionC = positionA.clone().add(s)
-	// createVector('C', positionC)
+
 }
